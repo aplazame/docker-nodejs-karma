@@ -1,6 +1,6 @@
 FROM ubuntu:trusty
 
-MAINTAINER Jesús Germade <jesus@germade.es>
+MAINTAINER Jesús Germade <jesus@aplazame.com>
 
 RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections; \
     apt-get update; \
