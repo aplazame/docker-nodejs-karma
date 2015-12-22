@@ -2,6 +2,8 @@ FROM ubuntu:trusty
 
 MAINTAINER Jesús Germade <jesus@aplazame.com>
 
+RUN  echo "    IdentityFile ~/.ssh/id_rsa" >> /etc/ssh/ssh_config
+
 RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections; \
     apt-get update; \
     apt-get install -y build-essential; \
