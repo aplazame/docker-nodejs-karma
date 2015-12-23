@@ -11,7 +11,8 @@ RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selectio
     sh -c 'echo "deb http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list'; \
     apt-get update && apt-get install -y google-chrome-stable nodejs Xvfb; \
     apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*; \
-    npm install bower -g
+    npm install bower -g; \
+    npm install phantomjs -g
 
 ADD xvfb.sh /etc/init.d/xvfb
 ADD entrypoint.sh /entrypoint.sh
