@@ -48,7 +48,7 @@ RUN mkdir -p /usr/src; \
 RUN cp /usr/src/phantomjs-2.0.0/bin/phantomjs /usr/local/bin/phantomjs
 
 RUN npm install bower -g; \
-    npm install karma-phantomjs-launcher -g
+    npm install karma-phantomjs2-launcher -g
 
 ADD xvfb.sh /etc/init.d/xvfb
 ADD entrypoint.sh /entrypoint.sh
