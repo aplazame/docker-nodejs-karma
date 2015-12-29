@@ -35,10 +35,7 @@ RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selectio
     sh -c 'echo "deb http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list'; \
 
     apt-get update && apt-get install -y google-chrome-stable nodejs Xvfb; \
-    apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*; \
-
-    npm install bower -g; \
-    npm install phantomjs -g
+    apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \
 
 RUN mkdir -p /usr/src; \
     cd /usr/src; \
@@ -49,6 +46,9 @@ RUN mkdir -p /usr/src; \
     ./build.sh --confirm
 
 RUN cp /usr/src/phantomjs-2.0.0/bin/phantomjs /usr/local/bin/phantomjs
+
+RUN npm install bower -g; \
+    npm install karma-phantomjs-launcher -g
 
 ADD xvfb.sh /etc/init.d/xvfb
 ADD entrypoint.sh /entrypoint.sh
