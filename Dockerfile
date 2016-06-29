@@ -4,56 +4,19 @@ MAINTAINER Jesús Germade <jesus@aplazame.com>
 
 RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections; \
     apt-get update; \
-    apt-get install -y \
-      bison \
-      build-essential \
-      curl \
-      flex \
-      g++ \
-      git \
-      gperf \
-      sqlite3 \
-      libsqlite3-dev \
-      fontconfig \
-      libfontconfig1 \
-      libfontconfig1-dev \
-      libfreetype6 \
-      libfreetype6-dev \
-      libicu-dev \
-      libjpeg-dev \
-      libpng-dev \
-      libssl-dev \
-      libqt5webkit5-dev \
-      ruby \
-      python \
-      perl \
-      unzip \
-      wget; \
-
+    apt-get install -y build-essential; \
+    apt-get install -y git curl python; \
     curl -sL https://deb.nodesource.com/setup_4.x | sudo bash -; \
-    curl https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add - ; \
-    sh -c 'echo "deb http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list'; \
-
-    apt-get update && apt-get install -y google-chrome-stable nodejs Xvfb; \
-    apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \
-
-RUN mkdir -p /usr/src; \
-    cd /usr/src; \
-    wget https://bitbucket.org/ariya/phantomjs/downloads/phantomjs-2.0.0-source.zip; \
-    unzip phantomjs-2.0.0-source.zip; \
-    rm phantomjs-2.0.0-source.zip; \
-    cd phantomjs-2.0.0; \
-    ./build.sh --confirm \
-
-RUN cp /usr/src/phantomjs-2.0.0/bin/phantomjs /usr/local/bin/phantomjs \
-
-RUN npm install bower -g; \
-    npm install karma-phantomjs2-launcher -g \
+    apt-get update && apt-get install -y chromium-browser nodejs Xvfb; \
+    apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*; \
+    npm install npm -g; \
+    npm install bower -g; \
+    npm install phantomjs-prebuilt -g
 
 ADD xvfb.sh /etc/init.d/xvfb
 ADD entrypoint.sh /entrypoint.sh
 
 ENV DISPLAY :99.0
-ENV CHROME_BIN /usr/bin/google-chrome
+ENV CHROME_BIN /usr/bin/chromium-browser
 
 ENTRYPOINT ["/entrypoint.sh"]
