@@ -1,24 +1,35 @@
 FROM ubuntu:trusty
 
-MAINTAINER Jesús Germade <jesus@aplazame.com>
-
 RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections; \
     apt-get update; \
-    apt-get install -y build-essential; \
-    apt-get install -y git curl python; \
-    curl -sL https://deb.nodesource.com/setup_4.x | sudo bash -; \
-    curl https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add - ; \
-    sh -c 'echo "deb http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list'; \
-    apt-get update && apt-get install -y google-chrome-stable firefox nodejs Xvfb; \
-    apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*; \
-    npm install npm -g; \
-    npm install bower -g; \
-    npm install phantomjs-prebuilt -g
+    apt-get install -y \
+        curl \
+        wget \
+        software-properties-common; \
+    add-apt-repository ppa:cpick/hub; \
+    wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | apt-key add -; \
+    echo 'deb http://dl.google.com/linux/chrome/deb/ stable main' > /etc/apt/sources.list.d/google-chrome.list; \
+    wget -q -O - https://deb.nodesource.com/setup_4.x | bash -; \
+    apt-get install -y \
+        build-essential \
+        python \
+        hub \
+        google-chrome-stable \
+        firefox \
+        nodejs \
+        Xvfb;
 
-ADD xvfb.sh /etc/init.d/xvfb
-ADD entrypoint.sh /entrypoint.sh
+RUN alias git=hub
 
 ENV DISPLAY :99.0
 ENV CHROME_BIN /usr/bin/google-chrome
+
+RUN npm install -g npm
+RUN npm install -g \
+        bower \
+        phantomjs-prebuilt
+
+ADD xvfb.sh /etc/init.d/xvfb
+ADD entrypoint.sh /entrypoint.sh
 
 ENTRYPOINT ["/entrypoint.sh"]
