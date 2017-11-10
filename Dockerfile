@@ -5,12 +5,9 @@ RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selectio
     apt-get install -y \
         curl \
         wget \
-        software-properties-common;
-
-RUN apt-get install -y \
+        software-properties-common \
         build-essential \
         python \
-        nodejs \
         xvfb;
 
 RUN wget -q -O - https://deb.nodesource.com/setup_8.x | bash -; \
