@@ -1,6 +1,6 @@
 A [Docker](https://www.docker.com/) container with
 
-- node 4.x
+- node 8.x
 - chrome for karma headless testing
 - bower is included
 
