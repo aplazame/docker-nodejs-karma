@@ -28,9 +28,9 @@ ENV DISPLAY :99.0
 ENV CHROME_BIN /usr/bin/google-chrome
 
 RUN npm install -g npm
-RUN npm install -g \
-        bower \
-        phantomjs-prebuilt
+
+RUN npm install -g bower;
+RUN npm install -g phantomjs@2.1.1 --unsafe-perm;
 
 ADD xvfb.sh /etc/init.d/xvfb
 ADD entrypoint.sh /entrypoint.sh
