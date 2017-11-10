@@ -24,9 +24,9 @@ RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selectio
         dpkg -i s3deploy_1.1_Linux-64bit.deb; \
         rm s3deploy_1.1_Linux-64bit.deb;
 
-RUN node -v
-    npm -v
-    npm install -g bower;
+RUN node -v; \
+    npm -v; \
+    npm install -g bower; \
     npm install -g phantomjs@2.1.1 --unsafe-perm;
 
 RUN alias git=hub
