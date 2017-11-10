@@ -9,7 +9,7 @@ RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selectio
     add-apt-repository ppa:cpick/hub; \
     wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | apt-key add -; \
     echo 'deb http://dl.google.com/linux/chrome/deb/ stable main' > /etc/apt/sources.list.d/google-chrome.list; \
-    wget -q -O - https://deb.nodesource.com/setup_4.x | bash -; \
+    wget -q -O - https://deb.nodesource.com/setup_8.x | bash -; \
     apt-get install -y \
         build-essential \
         python \
@@ -17,7 +17,10 @@ RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selectio
         google-chrome-stable \
         firefox \
         nodejs \
-        Xvfb;
+        Xvfb; \
+    wget https://github.com/bep/s3deploy/releases/download/v1.1/s3deploy_1.1_Linux-64bit.deb; \
+    dpkg -i s3deploy_1.1_Linux-64bit.deb; \
+    rm s3deploy_1.1_Linux-64bit.deb;
 
 RUN alias git=hub
 
