@@ -10,15 +10,14 @@ RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selectio
         python \
         xvfb;
 
-RUN wget -q -O - https://deb.nodesource.com/setup_8.x | bash -; \
-        apt-get update && apt-get install -y nodejs && \
-        npm install npm@latest -g;
-
 RUN wget https://github.com/bep/s3deploy/releases/download/v1.1/s3deploy_1.1_Linux-64bit.deb; \
         dpkg -i s3deploy_1.1_Linux-64bit.deb; \
         rm s3deploy_1.1_Linux-64bit.deb;
 
-RUN node -v; \
+RUN wget -q -O - https://deb.nodesource.com/setup_8.x | bash -; \
+        apt-get update && apt-get install -y nodejs && \
+        npm install npm@latest -g; \
+    node -v; \
     npm -v;
 
 RUN npm install -g bower; \
