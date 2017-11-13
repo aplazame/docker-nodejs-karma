@@ -16,7 +16,7 @@ RUN wget https://github.com/bep/s3deploy/releases/download/v1.1/s3deploy_1.1_Lin
 
 RUN wget -q -O - https://deb.nodesource.com/setup_8.x | bash -; \
         apt-get update && apt-get install -y nodejs && \
-        npm install npm@latest -g; \
+        npm install npm@4 -g; \
     node -v; \
     npm -v;
 
