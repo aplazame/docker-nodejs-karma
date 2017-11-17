@@ -30,8 +30,6 @@ RUN wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | apt-key add
         google-chrome-stable \
         firefox;
 
-RUN alias git=hub
-
 ENV DISPLAY :99.0
 ENV CHROME_BIN /usr/bin/google-chrome
 
