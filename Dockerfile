@@ -8,7 +8,10 @@ RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selectio
         software-properties-common \
         build-essential \
         python \
+        python-pip \
         xvfb;
+
+RUN pip install awscli;
 
 RUN wget https://github.com/bep/s3deploy/releases/download/v1.1/s3deploy_1.1_Linux-64bit.deb; \
         dpkg -i s3deploy_1.1_Linux-64bit.deb; \
