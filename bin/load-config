@@ -1,0 +1,10 @@
+#!/bin/bash
+
+export AWS_DEFAULT_REGION=${AWS_DEFAULT_REGION:-eu-central-1}
+export AWS_ROLE=${AWS_ROLE:-FrontDeployer}
+
+aws ssm get-parameter --name /deployer/aws.config | jq -r '.Parameter.Value' > ~/.aws/config.tpl
+
+[[ ${AWS_ROLE} != "InfraDeployer" ]] && sed -i '/external_id/d' ~/.aws/config.tpl
+
+envsubst < ~/.aws/config.tpl > ~/.aws/config

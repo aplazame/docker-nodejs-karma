@@ -9,8 +9,8 @@ RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selectio
     add-apt-repository ppa:cpick/hub; \
     wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | apt-key add -; \
     echo 'deb http://dl.google.com/linux/chrome/deb/ stable main' > /etc/apt/sources.list.d/google-chrome.list; \
-    wget -q -O - https://deb.nodesource.com/setup_4.x | bash -; \
-    apt-get install -y \
+    wget -q -O - https://deb.nodesource.com/setup_12.x | bash -; \
+    apt-get install -y --force-yes \
         build-essential \
         python \
         hub \
@@ -31,5 +31,8 @@ RUN npm install -g \
 
 ADD xvfb.sh /etc/init.d/xvfb
 ADD entrypoint.sh /entrypoint.sh
+
+COPY bin/ /opt/bin
+ENV PATH="/opt/bin:${PATH}"
 
 ENTRYPOINT ["/entrypoint.sh"]
