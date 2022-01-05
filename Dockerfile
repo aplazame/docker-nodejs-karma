@@ -17,7 +17,14 @@ RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selectio
         google-chrome-stable \
         firefox \
         nodejs \
-        Xvfb;
+        unzip \
+        jq \
+        gettext-base \
+        Xvfb; \
+    curl https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip -o /tmp/awscliv2.zip && \
+    unzip -qq /tmp/awscliv2.zip -d /tmp/ && \
+    chmod +x /tmp/aws/install && \
+    sudo /tmp/aws/install;
 
 RUN alias git=hub
 
@@ -34,5 +41,7 @@ ADD entrypoint.sh /entrypoint.sh
 
 COPY bin/ /opt/bin
 ENV PATH="/opt/bin:${PATH}"
+
+RUN mkdir ~/.aws/
 
 ENTRYPOINT ["/entrypoint.sh"]
